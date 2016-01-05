@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:weightSum="1">
+
+
+    <Button
+        android:layout_width="166dp"
+        android:layout_height="67dp"
+        android:text="Add one"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/bAdd" />
+
+
+    <TextView
+        android:layout_width="232dp"
+        android:layout_height="93dp"
+        android:text="Your Total is 0    "
+        android:textSize="40sp"
+
+        android:id="@+id/tvDisplay"
+        android:layout_below="@+id/bAdd"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="102dp" />
+
+    <Button
+        android:layout_width="166dp"
+        android:layout_height="wrap_content"
+        android:text="Subtract one"
+        android:textSize="20sp"
+        android:id="@+id/bSub"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/tvDisplay"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="73dp" />
+
+</RelativeLayout>
