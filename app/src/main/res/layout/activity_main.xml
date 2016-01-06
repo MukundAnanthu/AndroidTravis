@@ -11,9 +11,9 @@
 
 
     <Button
-        android:layout_width="166dp"
-        android:layout_height="67dp"
-        android:text="Add one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom"
         android:layout_gravity="center_vertical"
         android:id="@+id/bAdd" />
 
