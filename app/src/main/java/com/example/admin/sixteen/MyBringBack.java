@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.view.View;
 
 /**
@@ -16,17 +17,26 @@ public class MyBringBack extends View {
 
     private Bitmap gBall;
     private float changeY;
-
+    private Typeface typeFace;
     public MyBringBack(Context context) {
         super(context);
         gBall = BitmapFactory.decodeResource(getResources(),R.drawable.greenball);
         changeY = 0;
+        //typeFace = Typeface.createFromAsset(context.getAssets(),"g_unit.ttf");
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawColor(Color.YELLOW);
+
+        Paint textPaint = new Paint();
+        textPaint.setARGB(50,254,10,50);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setTextSize(50);
+        //textPaint.setTypeface(typeFace);
+        canvas.drawText("my bring",canvas.getWidth()/2,200, textPaint);
+
         canvas.drawBitmap(gBall,(canvas.getWidth()/2),changeY,null);
         if(changeY < canvas.getHeight()) {
             changeY += 10;
