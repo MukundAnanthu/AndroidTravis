@@ -105,6 +105,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".GFSSurface"
+            android:label="@string/app_name"
+            >
+            <intent-filter>
+                <action android:name="com.sixteen.GFSSURFACE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
