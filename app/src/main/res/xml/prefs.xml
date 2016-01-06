@@ -8,9 +8,9 @@
      />
 
     <CheckBoxPreference
-        android:title="CheckBox"
+        android:title="Music"
         android:defaultValue="true"
-        android:summary="Check the text box"
+        android:summary="Turn on startup Music..."
         android:key="checkbox"
     />
 

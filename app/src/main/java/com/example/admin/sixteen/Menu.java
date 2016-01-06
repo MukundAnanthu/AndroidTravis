@@ -52,6 +52,11 @@ public class Menu extends ListActivity {
                 startActivity(i);
                 break;
             case R.id.iPreferences:
+                Intent p = new Intent("com.sixteen.PREFS");
+                startActivity(p);
+                break;
+            case R.id.iExit:
+                finish();
                 break;
         }
         return false;

@@ -2,8 +2,10 @@ package com.example.admin.sixteen;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 /**
  * Created by admin on 02-01-2016.
@@ -20,7 +22,11 @@ public class Splash extends Activity {
         setContentView(R.layout.splash);
 
         startingSong = MediaPlayer.create(Splash.this,R.raw.skyfall);
-        startingSong.start();
+        SharedPreferences getPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean playPreference = getPrefs.getBoolean("checkbox",true);
+        if (playPreference == true)
+            startingSong.start();
+
         Thread thread = new Thread(){
             public void run() {
                 try {
