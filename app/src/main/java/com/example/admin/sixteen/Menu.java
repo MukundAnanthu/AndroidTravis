@@ -3,6 +3,8 @@ package com.example.admin.sixteen;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -30,5 +32,28 @@ public class Menu extends ListActivity {
         }catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuInflater blowUp = getMenuInflater();
+        blowUp.inflate(R.menu.cool_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.iAboutUs:
+                Intent i = new Intent("com.sixteen.ABOUT_US");
+                startActivity(i);
+                break;
+            case R.id.iPreferences:
+                break;
+        }
+        return false;
     }
 }
