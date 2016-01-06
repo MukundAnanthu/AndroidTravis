@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.View;
 
 /**
@@ -32,6 +34,13 @@ public class MyBringBack extends View {
         else{
             changeY = 0;
         }
+
+        Rect rect = new Rect();
+        rect.set(0,500,canvas.getWidth(),550);
+        Paint ourPaint = new Paint();
+        ourPaint.setColor(Color.BLUE);
+        canvas.drawRect(rect,ourPaint);
+
         //makes the canvas be drawn over and over again.
         //without this, the canvas is drawn only once
         invalidate();
