@@ -48,7 +48,7 @@ public class GFSSurface extends Activity implements View.OnTouchListener {
         y = event.getY();
 
 
-        return false;
+        return true;
     }
 
     public class MySurfaceBringBack extends SurfaceView implements Runnable {
@@ -97,7 +97,7 @@ public class GFSSurface extends Activity implements View.OnTouchListener {
                 canvas.drawColor(Color.rgb(2, 2, 250));
                 if ( x!= 0 && y != 0) {
                     Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.greenball);
-                    canvas.drawBitmap(bmp,x,y,null);
+                    canvas.drawBitmap(bmp,x-bmp.getWidth()/2,y-bmp.getHeight()/2,null);
                 }
                 ourHolder.unlockCanvasAndPost(canvas);
             }
