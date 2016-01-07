@@ -13,7 +13,8 @@ import android.widget.TextView;
 public class Tabs extends Activity implements View.OnClickListener {
 
     private TabHost th;
-
+    private TextView showResults;
+    private long startTime,stopTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +23,10 @@ public class Tabs extends Activity implements View.OnClickListener {
         Button newTab = (Button) findViewById(R.id.bAddTab);
         Button start = (Button) findViewById(R.id.bStart);
         Button stop = (Button) findViewById(R.id.bStop);
+        showResults = (TextView) findViewById(R.id.tvDisplayResults);
+
+        start.setOnClickListener(this);
+        stop.setOnClickListener(this);
         newTab.setOnClickListener(this);
 
         th = (TabHost) findViewById(R.id.tabHost);
@@ -40,6 +45,7 @@ public class Tabs extends Activity implements View.OnClickListener {
         specs.setContent(R.id.tab3);
         specs.setIndicator("Add a Tab");
         th.addTab(specs);
+        startTime = (long) 0;
     }
 
     @Override
@@ -60,8 +66,16 @@ public class Tabs extends Activity implements View.OnClickListener {
                 th.addTab(ourSpec);
                 break;
             case R.id.bStart:
+                startTime = System.currentTimeMillis();
                 break;
             case R.id.bStop:
+
+                stopTime = System.currentTimeMillis();
+
+                if ( startTime != 0 ) {
+                    long timeElapsed = stopTime - startTime;
+                    showResults.setText(Long.toString(timeElapsed));
+                }
                 break;
         }
     }
