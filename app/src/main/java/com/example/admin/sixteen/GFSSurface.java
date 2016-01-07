@@ -19,7 +19,9 @@ import android.view.View;
 public class GFSSurface extends Activity implements View.OnTouchListener {
 
     private MySurfaceBringBack ourSurfaceView;
-    private float x,y;
+    private float x,y,fX,fY,sX,sY;
+    private Bitmap bmp, plus;
+    private float scaledX,scaledY,aniX,aniY,dX,dY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,10 @@ public class GFSSurface extends Activity implements View.OnTouchListener {
         ourSurfaceView = new MySurfaceBringBack(this);
         ourSurfaceView.setOnTouchListener(this);
         setContentView(ourSurfaceView);
-        x = y = 0;
+        x = y = sX = sY = fX = fY = 0;
+        dX = dY = aniX = aniY = scaledX = scaledY = 0;
+        bmp = BitmapFactory.decodeResource(getResources(),R.drawable.greenball);
+        plus = BitmapFactory.decodeResource(getResources(),R.drawable.plus);
     }
 
     @Override
@@ -47,7 +52,26 @@ public class GFSSurface extends Activity implements View.OnTouchListener {
         x = event.getX();
         y = event.getY();
 
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                sX = event.getX();
+                sY = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                fX = event.getX();
+                fY = event.getY();
+                dX = fX - sX;
+                dY = fY - sY;
+                scaledX = dX / 30;
+                scaledY = dY / 30;
+                break;
+        }
         return true;
     }
 
@@ -96,9 +120,17 @@ public class GFSSurface extends Activity implements View.OnTouchListener {
                 Canvas canvas = ourHolder.lockCanvas();
                 canvas.drawColor(Color.rgb(2, 2, 250));
                 if ( x!= 0 && y != 0) {
-                    Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.greenball);
                     canvas.drawBitmap(bmp,x-bmp.getWidth()/2,y-bmp.getHeight()/2,null);
                 }
+                if ( sX!= 0 && sY != 0) {
+                    canvas.drawBitmap(plus,sX-plus.getWidth()/2,sY-plus.getHeight()/2,null);
+                }
+                if ( fX!= 0 && fY != 0) {
+                    canvas.drawBitmap(bmp,x-bmp.getWidth()/2-aniX,y-bmp.getHeight()/2-aniY,null);
+                    canvas.drawBitmap(plus,fX-plus.getWidth()/2,fY-plus.getHeight()/2,null);
+                }
+                aniX = scaledX + aniX;
+                aniY = scaledY + aniY;
                 ourHolder.unlockCanvasAndPost(canvas);
             }
         }
