@@ -19,7 +19,8 @@ public class Flipper extends Activity implements View.OnClickListener{
         setContentView(R.layout.flipper);
         flippy = (ViewFlipper) findViewById(R.id.viewFlipper);
         flippy.setOnClickListener(this);
-        //flippy.
+        flippy.setFlipInterval(500);
+        flippy.startFlipping();
     }
 
     @Override
