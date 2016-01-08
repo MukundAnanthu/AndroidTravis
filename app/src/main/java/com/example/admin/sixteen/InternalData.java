@@ -86,7 +86,7 @@ public class InternalData extends Activity implements View.OnClickListener {
             f = "whatever";
         }
 
-        protected void onProgress(Integer...progress) {
+        protected void onProgressUpdate(Integer...progress) {
 
         }
 
