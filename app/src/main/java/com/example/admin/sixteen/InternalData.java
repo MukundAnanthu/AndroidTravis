@@ -3,6 +3,7 @@ package com.example.admin.sixteen;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -72,29 +73,52 @@ public class InternalData extends Activity implements View.OnClickListener {
                 * */
                 break;
             case R.id.bLoad:
-                String collected = null;
-                FileInputStream fis = null;
+                new LoadSomeStuff().execute(FILE_NAME);
+                break;
+        }
+        
+    }
+
+    private class LoadSomeStuff extends AsyncTask<String,Integer,String> {
+
+        protected void onPreExecute(String f) {
+            //set up stuff
+            f = "whatever";
+        }
+
+        protected void onProgress(Integer...progress) {
+
+        }
+
+        protected void onPostExecute(String result){
+            dataResults.setText(result);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String collected = null;
+            FileInputStream fis = null;
+            try {
+                fis = openFileInput(FILE_NAME);
+                byte[] dataArray = new byte[fis.available()];
+                while(fis.read(dataArray) != -1 ) {
+                    collected = new String(dataArray);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                assert fis != null;
                 try {
-                     fis = openFileInput(FILE_NAME);
-                    byte[] dataArray = new byte[fis.available()];
-                    while(fis.read(dataArray) != -1 ) {
-                        collected = new String(dataArray);
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                    fis.close();
+                    return collected;
                 } catch (IOException e) {
                     e.printStackTrace();
-                } finally {
-                    assert fis != null;
-                    try {
-                        fis.close();
-                        dataResults.setText(collected);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
+            }
 
-                break;
+            return null;
         }
     }
 }
