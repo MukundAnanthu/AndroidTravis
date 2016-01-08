@@ -1,6 +1,7 @@
 package com.example.admin.sixteen;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.io.FileInputStream;
@@ -81,13 +83,18 @@ public class InternalData extends Activity implements View.OnClickListener {
 
     private class LoadSomeStuff extends AsyncTask<String,Integer,String> {
 
-        protected void onPreExecute(String f) {
-            //set up stuff
-            f = "whatever";
+        ProgressDialog dialog;
+
+        protected void onPreExecute() {
+
+            dialog = new ProgressDialog(InternalData.this);
+            dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            dialog.setMax(100);
+            dialog.show();
         }
 
         protected void onProgressUpdate(Integer...progress) {
-
+            dialog.incrementProgressBy(progress[0]);
         }
 
         protected void onPostExecute(String result){
@@ -98,6 +105,16 @@ public class InternalData extends Activity implements View.OnClickListener {
         protected String doInBackground(String... params) {
             String collected = null;
             FileInputStream fis = null;
+
+            for ( int i = 0; i < 20; i++ ) {
+                publishProgress(5);
+                try {
+                    Thread.sleep(88);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            dialog.dismiss();
             try {
                 fis = openFileInput(FILE_NAME);
                 byte[] dataArray = new byte[fis.available()];
