@@ -2,6 +2,7 @@ package com.example.admin.sixteen;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +45,8 @@ public class SqliteExample extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bView:
-
+                Intent i = new Intent("com.sixteen.SQL_VIEW");
+                startActivity(i);
                 break;
             case R.id.bUpdate:
                 boolean didItWork = true;

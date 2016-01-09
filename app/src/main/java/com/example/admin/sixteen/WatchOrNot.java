@@ -2,6 +2,7 @@ package com.example.admin.sixteen;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -28,6 +29,25 @@ public class WatchOrNot {
         cv.put(KEY_NAME,enteredName);
         cv.put(KEY_HOTNESS,enteredRating);
         return ourDatabase.insert(DATABASE_TABLE,null,cv);
+    }
+
+    public String getData() {
+
+        String[] columns = new String[]{KEY_ROWID,KEY_NAME,KEY_HOTNESS};
+        Cursor c = ourDatabase.query(DATABASE_TABLE,columns,null,null,null,null,null);
+
+        String result = "";
+
+        int rowIdIndex = c.getColumnIndex(KEY_ROWID);
+        int nameIndex = c.getColumnIndex(KEY_NAME);
+        int hotnessIndex = c.getColumnIndex(KEY_HOTNESS);
+
+        for ( c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            result = result + c.getString(rowIdIndex)+ " "+ c.getString(nameIndex)+
+                    " "+ c.getString(hotnessIndex) + "\n";
+        }
+
+        return result;
     }
 
     private static class DbHelper extends SQLiteOpenHelper {
