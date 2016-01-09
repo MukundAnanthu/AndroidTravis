@@ -1,6 +1,8 @@
 package com.example.admin.sixteen;
 
 import android.app.Activity;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -101,7 +103,7 @@ public class ExternalStorage extends Activity implements AdapterView.OnItemSelec
         switch (v.getId()){
             case R.id.bSave:
                 String f = saveFile.getText().toString();
-                file = new File(path,f);
+                file = new File(path,f+".png");
 
                 checkState();
 
@@ -118,6 +120,17 @@ public class ExternalStorage extends Activity implements AdapterView.OnItemSelec
 
                         Toast t = Toast.makeText(ExternalStorage.this,"File has been saved", Toast.LENGTH_LONG);
                         t.show();
+
+                            MediaScannerConnection.scanFile(ExternalStorage.this,new String[]{file.toString()},
+                                    null,
+                                    new MediaScannerConnection.OnScanCompletedListener() {
+                                        public void onScanCompleted(String path,Uri uri) {
+                                            Toast t = Toast.makeText(ExternalStorage.this,"Media updated",
+                                                    Toast.LENGTH_LONG
+                                                    );
+                                        }
+                                    }
+                                    );
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
